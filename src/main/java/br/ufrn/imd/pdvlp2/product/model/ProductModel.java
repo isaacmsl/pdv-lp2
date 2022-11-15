@@ -14,5 +14,6 @@ public class ProductModel extends AbstractModel {
     private String name;
     private int quantity;
     private String category;
+    private double price;
 
 }
