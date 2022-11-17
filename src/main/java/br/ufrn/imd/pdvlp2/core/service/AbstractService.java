@@ -25,8 +25,6 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
         return savedModel;
     }
 
-    public abstract M patch(M model, M saveModel);
-
     public void delete(M model) {
         repository.delete(model);
     }
