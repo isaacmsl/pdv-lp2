@@ -55,15 +55,7 @@ public class AbstractController <M extends AbstractModel, S extends AbstractServ
 
     @PostMapping
     public ResponseEntity<M> post(@RequestBody M saveModel) {
-        Optional<M> opModel = service.findById(saveModel.getId());
-
-        if (opModel.isEmpty()) {
-            M result = (M) service.save(saveModel);
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        }
-        
-        M patchModel = (M) service.patch(opModel.get(), saveModel);
-        M result = (M) service.save(patchModel);
+        M result = (M) service.save(saveModel);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
