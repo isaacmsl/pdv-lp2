@@ -22,7 +22,7 @@ public class ProductTests {
 
     @Before
     public void setUp() throws Exception {
-        productTest1 = productRepository.save(new ProductModel("chocolate_test", 5, "food", 100));
+        productTest1 = productRepository.save(new ProductModel("chocolate_test", 5, 100));
     }
 
     @Test
