@@ -1,5 +1,6 @@
 package br.ufrn.imd.pdvlp2.product;
 
+import org.junit.After;
 import org.junit.Assert;
 
 import org.junit.Before;
@@ -25,18 +26,24 @@ public class ProductTests {
         productTest1 = productRepository.save(new ProductModel("chocolate_test", 5, 100));
     }
 
-    @Test
-    public void shouldBeNotEmpty() {
-        Assert.assertNotNull(productRepository.findById(productTest1.id));
-    }
-
-    @Before
+    @After
     public void deleteAll() throws Exception {
         productRepository.deleteAll();
     }
 
     @Test
+    public void shouldFindById() {
+        Assert.assertEquals(true, productRepository.findById(productTest1.id).isPresent());
+    }
+
+    @Test
+    public void shouldFindByName() {
+        Assert.assertEquals(true, productRepository.findByName(productTest1.getName()).isPresent());
+    }
+
+    @Test
     public void shouldBeEmpty() {
+        productRepository.deleteAll();
         Assert.assertEquals(0, productRepository.count());
     }
 
