@@ -1,7 +1,8 @@
 package br.ufrn.imd.pdvlp2.product.service;
 
-import java.util.Objects;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufrn.imd.pdvlp2.core.service.AbstractService;
@@ -10,4 +11,10 @@ import br.ufrn.imd.pdvlp2.product.repository.ProductRepository;
 
 @Service
 public class ProductService extends AbstractService<ProductModel, ProductRepository> {
+    @Autowired
+    ProductRepository repository;
+
+    public Optional<ProductModel> findByName(String name) {
+        return repository.findByName(name);
+    }
 }
