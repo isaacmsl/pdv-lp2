@@ -26,4 +26,9 @@ public class ProductController extends AbstractController<ProductModel, ProductS
 
         return ResponseEntity.ok().body(product.get());
     }
+
+    @GetMapping("/regex")
+    public ResponseEntity<List<ProductModel>> findByNameRegex(@RequestParam String name) {
+        return ResponseEntity.ok().body(service.findByNameRegex(name));
+    }
 }

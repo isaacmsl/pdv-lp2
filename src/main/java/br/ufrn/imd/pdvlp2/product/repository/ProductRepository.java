@@ -14,6 +14,9 @@ public interface ProductRepository extends AbstractRepository<ProductModel> {
     @Query("{name:'?0'}")
     Optional<ProductModel> findByName(String name);
 
+    @Query("{name:{$regex: ?0,$options:'i'}}")
+    List<ProductModel> findByNameRegex(String name);
+
     @Query(value = "{category:'?0'}", fields = "{'name' : 1, 'quantity' : 1}")
     List<ProductModel> findAll(String category);
 }
