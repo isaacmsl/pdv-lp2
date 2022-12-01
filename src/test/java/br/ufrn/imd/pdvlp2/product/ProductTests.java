@@ -42,6 +42,13 @@ public class ProductTests {
     }
 
     @Test
+    public void shouldFindByNameRegex() {
+        productRepository.save(new ProductModel("ballchoco", 5, 10));
+        productRepository.save(new ProductModel("Chocolatto", 50, 100));
+        Assert.assertEquals(3, productRepository.findByNameRegex("choco").size());
+    }
+
+    @Test
     public void shouldBeEmpty() {
         productRepository.deleteAll();
         Assert.assertEquals(0, productRepository.count());
