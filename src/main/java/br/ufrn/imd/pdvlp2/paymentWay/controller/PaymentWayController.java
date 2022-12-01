@@ -18,13 +18,13 @@ import br.ufrn.imd.pdvlp2.paymentWay.service.PaymentWayService;
 public class PaymentWayController extends AbstractController<PaymentWayModel, PaymentWayService>{
     @GetMapping
     public ResponseEntity<PaymentWayModel> findByName(@RequestParam String name) {
-        Optional<PaymentWayModel> product = service.findByName(name);
+        Optional<PaymentWayModel> paymentWay = service.findByName(name);
 
-        if (!product.isPresent()){
+        if (!paymentWay.isPresent()){
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(product.get());
+        return ResponseEntity.ok().body(paymentWay.get());
     }
 
     @GetMapping("/regex")
