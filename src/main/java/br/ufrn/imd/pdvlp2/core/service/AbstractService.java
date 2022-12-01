@@ -20,7 +20,7 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
         return repository.findById(id);
     }
 
-    public synchronized M save(M model) {
+    public synchronized M save(M model) throws Exception {
         M savedModel = repository.save(model);
         return savedModel;
     }
