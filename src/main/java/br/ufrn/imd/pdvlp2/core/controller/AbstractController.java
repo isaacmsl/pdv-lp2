@@ -55,7 +55,12 @@ public class AbstractController <M extends AbstractModel, S extends AbstractServ
 
     @PostMapping
     public ResponseEntity<M> post(@RequestBody M saveModel) {
-        M result = (M) service.save(saveModel);
+        M result = null;
+        try {
+            result = (M) service.save(saveModel);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
