@@ -38,8 +38,8 @@ public class SaleTests {
 
     @Before
     public void setUp() throws Exception {
-        product1 = productRepository.save(new ProductModel("Ruffles", 5, 7.85));
-        product2 = productRepository.save(new ProductModel("Pippos", 10, 4.50));
+        product1 = productRepository.save(new ProductModel("Ruffles", 5, 7.85, "12341242133"));
+        product2 = productRepository.save(new ProductModel("Pippos", 10, 4.50, "34412390421"));
         List<ProductModel> products = new ArrayList<>();
         products.add(product1);
         products.add(product2);
@@ -52,6 +52,8 @@ public class SaleTests {
     @After
     public void deleteAll() throws Exception {
         repository.deleteAll();
+        productRepository.deleteAll();
+        paymentWayRepository.deleteAll();
     }
 
     @Test
