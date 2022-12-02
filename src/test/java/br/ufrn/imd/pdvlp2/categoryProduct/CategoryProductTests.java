@@ -3,6 +3,7 @@ package br.ufrn.imd.pdvlp2.categoryProduct;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
 
 import org.junit.Before;
@@ -31,7 +32,7 @@ public class CategoryProductTests {
 
     @Before
     public void setUp() throws Exception {
-        product = productRepository.save(new ProductModel("Ruffles", 5, 10));
+        product = productRepository.save(new ProductModel("Ruffles", 5, 10, "401239192848"));
         List<ProductModel> products = new ArrayList<>();
         products.add(product);
         category = new CategoryProductModel("Pop corn", products);
@@ -39,23 +40,25 @@ public class CategoryProductTests {
         category = categoryRepository.findById(category.getId()).get();
     }
 
+    @After
+    public void deleteAll() throws Exception {
+        categoryRepository.deleteAll();
+        productRepository.deleteAll();
+    }
+
     @Test
     public void shouldBeNotEmpty() {
         Assert.assertNotNull(category);
     }
+
     @Test
     public void shouldHaveProduct() {
         Assert.assertEquals(1, category.getProducts().size());
     }
 
-    @Before
-    public void deleteAll() throws Exception {
-        categoryRepository.deleteAll();
-        productRepository.delete(product);
-    }
-
     @Test
     public void shouldBeEmpty() {
+        categoryRepository.deleteAll();
         Assert.assertEquals(0, categoryRepository.count());
     }
 
