@@ -15,6 +15,10 @@ public class ProductService extends AbstractService<ProductModel, ProductReposit
     @Autowired
     ProductRepository repository;
 
+    public Optional<ProductModel> findByBarcode(String barcode) {
+        return repository.findByBarcode(barcode);
+    }
+    
     public Optional<ProductModel> findByName(String name) {
         return repository.findByName(name);
     }
