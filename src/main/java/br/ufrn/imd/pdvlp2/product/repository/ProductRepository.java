@@ -10,6 +10,8 @@ import br.ufrn.imd.pdvlp2.core.repository.AbstractRepository;
 import br.ufrn.imd.pdvlp2.product.model.ProductModel;
 
 public interface ProductRepository extends AbstractRepository<ProductModel> {
+    Optional<ProductModel> findByBarcode(String barcode);
+    
     @Autowired
     @Query("{name:'?0'}")
     Optional<ProductModel> findByName(String name);
