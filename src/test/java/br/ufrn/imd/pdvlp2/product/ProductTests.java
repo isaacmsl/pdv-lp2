@@ -38,20 +38,6 @@ public class ProductTests {
     }
 
     @Test
-    public void shouldNotPermitTwoProductSameBarcode() {
-        Boolean threw = false;
-
-        try {
-            productRepository.save(new ProductModel("chocoball", 5, 100, "123"));
-            productRepository.save(new ProductModel("ballchoco", 5, 100, "123"));
-        } catch (DuplicateKeyException dke) {
-            threw = true;
-        }
-
-        Assert.assertEquals(true, threw);
-    }
-
-    @Test
     public void shouldFindById() {
         Assert.assertEquals(true, productRepository.findById(productTest1.id).isPresent());
     }
