@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SaleModel extends AbstractModel {
 
+    @OneToOne
     private PaymentWayModel paymentWay;
     
     @OneToMany
