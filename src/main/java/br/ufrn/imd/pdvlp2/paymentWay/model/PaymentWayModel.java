@@ -1,9 +1,7 @@
-package br.ufrn.imd.pdvlp2.product.model;
+package br.ufrn.imd.pdvlp2.paymentWay.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.ufrn.imd.pdvlp2.core.model.AbstractModel;
@@ -13,18 +11,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor; 
 
-@Document("Product")
+@Document("PaymentWay")
 @Entity
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductModel extends AbstractModel {
+public class PaymentWayModel extends AbstractModel {
 
     private String name;
-    private int quantity;
-    private double price;
-    private String barcode;
+    private double tax;
 
 }

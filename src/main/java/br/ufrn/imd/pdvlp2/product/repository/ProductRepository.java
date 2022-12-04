@@ -10,9 +10,14 @@ import br.ufrn.imd.pdvlp2.core.repository.AbstractRepository;
 import br.ufrn.imd.pdvlp2.product.model.ProductModel;
 
 public interface ProductRepository extends AbstractRepository<ProductModel> {
+    Optional<ProductModel> findByBarcode(String barcode);
+    
     @Autowired
     @Query("{name:'?0'}")
     Optional<ProductModel> findByName(String name);
+
+    @Query("{name:{$regex: ?0,$options:'i'}}")
+    List<ProductModel> findByNameRegex(String name);
 
     @Query(value = "{category:'?0'}", fields = "{'name' : 1, 'quantity' : 1}")
     List<ProductModel> findAll(String category);

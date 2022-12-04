@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.ufrn.imd.pdvlp2.product.model.ProductModel;
@@ -23,12 +24,17 @@ public class ProductTests {
 
     @Before
     public void setUp() throws Exception {
-        productTest1 = productRepository.save(new ProductModel("chocolate_test", 5, 100));
+        productTest1 = productRepository.save(new ProductModel("chocolate_test", 5, 100, "7897256257653"));
     }
 
     @After
     public void deleteAll() throws Exception {
         productRepository.deleteAll();
+    }
+
+    @Test
+    public void shouldFindByBarcode() {
+        Assert.assertEquals(true, productRepository.findByBarcode(productTest1.getBarcode()).isPresent());
     }
 
     @Test
@@ -39,6 +45,13 @@ public class ProductTests {
     @Test
     public void shouldFindByName() {
         Assert.assertEquals(true, productRepository.findByName(productTest1.getName()).isPresent());
+    }
+
+    @Test
+    public void shouldFindByNameRegex() {
+        productRepository.save(new ProductModel("ballchoco", 5, 10, "123123123"));
+        productRepository.save(new ProductModel("Chocolatto", 50, 100, "1231234"));
+        Assert.assertEquals(3, productRepository.findByNameRegex("choco").size());
     }
 
     @Test
