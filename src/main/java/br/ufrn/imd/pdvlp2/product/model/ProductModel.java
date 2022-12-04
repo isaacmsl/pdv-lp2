@@ -25,8 +25,6 @@ public class ProductModel extends AbstractModel {
     private String name;
     private int quantity;
     private double price;
-    
-    @Indexed(unique = true)
     private String barcode;
 
 }
