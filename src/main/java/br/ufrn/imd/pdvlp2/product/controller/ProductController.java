@@ -15,15 +15,27 @@ import br.ufrn.imd.pdvlp2.product.service.ProductService;
 
 @RestController
 @RequestMapping("products")
-public class ProductController extends AbstractController<ProductModel, ProductService>{
+public class ProductController extends AbstractController<ProductModel, ProductService> {
     @GetMapping
     public ResponseEntity<ProductModel> findByName(@RequestParam String name) {
         Optional<ProductModel> product = service.findByName(name);
 
-        if (!product.isPresent()){
+        if (!product.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok().body(product.get());
+    }
+
+    @GetMapping("/verifyIsAvailable")
+    public Boolean verifyIsAvailable(@RequestParam String name, @RequestParam int requestedQuantity) {
+        Optional<ProductModel> product = service.findByName(name);
+        ProductModel productItem = product.get();
+
+        if (!product.isPresent()) {
+            return false;
+        }
+
+        return productItem.getQuantity() >= requestedQuantity;
     }
 }
