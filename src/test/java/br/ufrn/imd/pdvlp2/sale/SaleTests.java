@@ -1,5 +1,6 @@
 package br.ufrn.imd.pdvlp2.sale;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.ufrn.imd.pdvlp2.sale.model.SaleModel;
 import br.ufrn.imd.pdvlp2.sale.repository.SaleRepository;
+import br.ufrn.imd.pdvlp2.employee.model.Address;
+import br.ufrn.imd.pdvlp2.employee.model.EmployeeModel;
 import br.ufrn.imd.pdvlp2.paymentWay.model.PaymentWayModel;
 import br.ufrn.imd.pdvlp2.paymentWay.repository.PaymentWayRepository;
 import br.ufrn.imd.pdvlp2.product.model.ProductModel;
@@ -35,9 +38,21 @@ public class SaleTests {
     SaleModel model;
     ProductModel product1, product2;
     PaymentWayModel paymentWay;
+    EmployeeModel employee;
 
     @Before
     public void setUp() throws Exception {
+        Address address = new Address("Rua do Lindo", "Neópolis", "42", "Natal");
+        
+        employee = new EmployeeModel(
+            "Isaac Lourenço",
+            "isaac@imd.ufrn.br",
+            "84999999999",
+            address,
+            LocalDate.parse("2001-07-27"),
+            false
+        );
+
         product1 = productRepository.save(new ProductModel("Ruffles", 5, 7.85, "12341242133"));
         product2 = productRepository.save(new ProductModel("Pippos", 10, 4.50, "34412390421"));
         List<ProductModel> products = new ArrayList<>();
@@ -46,7 +61,7 @@ public class SaleTests {
 
         paymentWay = new PaymentWayModel("Pix", 0.01);
 
-        model = repository.save(new SaleModel(paymentWay, products));
+        model = repository.save(new SaleModel(employee, paymentWay, products));
     }
 
     @After
@@ -54,6 +69,11 @@ public class SaleTests {
         repository.deleteAll();
         productRepository.deleteAll();
         paymentWayRepository.deleteAll();
+    }
+
+    @Test
+    public void shouldFindAllByEmployeeName() {
+        Assert.assertEquals(false, repository.findAllByEmployeeName(employee.getName()).isEmpty());
     }
 
     @Test

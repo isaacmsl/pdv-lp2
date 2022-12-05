@@ -4,12 +4,13 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.ufrn.imd.pdvlp2.core.model.AbstractModel;
+import br.ufrn.imd.pdvlp2.employee.model.EmployeeModel;
 import br.ufrn.imd.pdvlp2.paymentWay.model.PaymentWayModel;
 import br.ufrn.imd.pdvlp2.product.model.ProductModel;
 import lombok.AllArgsConstructor;
@@ -26,8 +27,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SaleModel extends AbstractModel {
+    
+    @ManyToOne
+    private EmployeeModel employee;
 
-    @OneToOne
+    @ManyToOne
     private PaymentWayModel paymentWay;
     
     @OneToMany

@@ -2,6 +2,7 @@ package br.ufrn.imd.pdvlp2.sale.service;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public class SaleService extends AbstractService<SaleModel, SaleRepository> {
     ProductRepository productRepository;
     @Autowired
     LogRepository log;
+
+    public List<SaleModel> findAllByEmployeeName(String name) {
+        return repository.findAllByEmployeeName(name);
+    }
+
 
     @Override
     public synchronized SaleModel save(SaleModel model) throws ProductSoldOffException {
