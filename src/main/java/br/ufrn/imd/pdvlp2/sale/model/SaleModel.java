@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.ufrn.imd.pdvlp2.core.model.AbstractModel;
+import br.ufrn.imd.pdvlp2.employee.model.EmployeeModel;
 import br.ufrn.imd.pdvlp2.paymentWay.model.PaymentWayModel;
 import br.ufrn.imd.pdvlp2.product.model.ProductModel;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SaleModel extends AbstractModel {
+    
+    @OneToOne
+    private EmployeeModel employee;
 
     @OneToOne
     private PaymentWayModel paymentWay;
