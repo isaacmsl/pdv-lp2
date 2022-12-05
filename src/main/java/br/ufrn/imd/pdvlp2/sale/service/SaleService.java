@@ -1,7 +1,7 @@
 package br.ufrn.imd.pdvlp2.sale.service;
 
 
-import java.util.Objects;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import br.ufrn.imd.pdvlp2.core.service.AbstractService;
 import br.ufrn.imd.pdvlp2.exceptions.ProductSoldOffException;
+import br.ufrn.imd.pdvlp2.log.model.LogModel;
+import br.ufrn.imd.pdvlp2.log.repository.LogRepository;
 import br.ufrn.imd.pdvlp2.product.model.ProductModel;
 import br.ufrn.imd.pdvlp2.product.repository.ProductRepository;
 import br.ufrn.imd.pdvlp2.sale.model.SaleModel;
@@ -21,6 +23,8 @@ public class SaleService extends AbstractService<SaleModel, SaleRepository> {
     SaleRepository repository;
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    LogRepository log;
 
     @Override
     public synchronized SaleModel save(SaleModel model) throws ProductSoldOffException {
@@ -53,6 +57,8 @@ public class SaleService extends AbstractService<SaleModel, SaleRepository> {
             model.getProducts().set(i, product);
         }
 
-        return repository.save(model);
+        SaleModel savedModel = repository.save(model);
+        log.save(new LogModel("System", "has created/updated a " + model.getClass().getSimpleName(), model.getId(), null, LocalDateTime.now()));
+        return savedModel;
     }
 }
