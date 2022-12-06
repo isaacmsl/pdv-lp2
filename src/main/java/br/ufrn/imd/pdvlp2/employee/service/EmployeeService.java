@@ -2,6 +2,7 @@ package br.ufrn.imd.pdvlp2.employee.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -17,6 +18,10 @@ public class EmployeeService extends AbstractService<EmployeeModel, EmployeeRepo
 
     @Autowired
     EmployeeRepository repository;
+    
+    public Optional<EmployeeModel> findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
     
     public List<EmployeeModel> findAllByName(String name) {
         return repository.findAllByName(name);
