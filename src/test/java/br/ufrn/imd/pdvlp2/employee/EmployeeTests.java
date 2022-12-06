@@ -1,6 +1,7 @@
 package br.ufrn.imd.pdvlp2.employee;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -30,12 +31,15 @@ public class EmployeeTests {
 
         employee = repository.save(
             new EmployeeModel(
+                true,
+                "isaacmsl",
+                "123",
+                new HashSet<>(),
                 "Isaac Lourenço",
                 "isaac@imd.ufrn.br",
                 "84999999999",
                 address,
-                LocalDate.parse("2001-07-27"),
-                false
+                LocalDate.parse("2001-07-27")
             )
         );
     }

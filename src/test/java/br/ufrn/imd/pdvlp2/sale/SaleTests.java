@@ -2,8 +2,8 @@ package br.ufrn.imd.pdvlp2.sale;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -45,12 +45,15 @@ public class SaleTests {
         Address address = new Address("Rua do Lindo", "Neópolis", "42", "Natal");
         
         employee = new EmployeeModel(
+            true,
+            "isaacmsl",
+            "123",
+            new HashSet<>(),
             "Isaac Lourenço",
             "isaac@imd.ufrn.br",
             "84999999999",
             address,
-            LocalDate.parse("2001-07-27"),
-            false
+            LocalDate.parse("2001-07-27")
         );
 
         product1 = productRepository.save(new ProductModel("Ruffles", 5, 7.85, "12341242133"));
